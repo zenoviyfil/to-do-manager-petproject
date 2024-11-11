@@ -31,7 +31,7 @@ const TaskList: React.FC = () => {
   const [sortCriteria, setSortCriteria] = useState<string>("deadline");
   const [filterCriteria, setFilterCriteria] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null); // Стан для дропдауну
+  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTasks().then((response) => setTasks(response.data));
@@ -77,7 +77,6 @@ const TaskList: React.FC = () => {
     }
   };
 
-  // Фільтрація завдань за статусом
   const filteredTasks = tasks.filter((task) => {
     const matchesFilter =
       filterCriteria === "all" ||
@@ -89,7 +88,6 @@ const TaskList: React.FC = () => {
     return matchesFilter && matchesSearch;
   });
 
-  // Сортування відфільтрованих завдань
   const sortedTasks = filteredTasks.sort((a, b) => {
     switch (sortCriteria) {
       case "deadline":
@@ -103,7 +101,6 @@ const TaskList: React.FC = () => {
     }
   });
 
-  // Перевірка дедлайнів
   const checkDeadline = (deadline: string) => {
     const currentDate = new Date();
     const deadlineDate = new Date(deadline);
@@ -118,7 +115,6 @@ const TaskList: React.FC = () => {
     return null;
   };
 
-  // Тогл для відкриття/закриття дропдауну
   const toggleDropdown = (taskId: string) => {
     setExpandedTaskId(expandedTaskId === taskId ? null : taskId);
   };
@@ -154,7 +150,6 @@ const TaskList: React.FC = () => {
         </button>
       </div>
 
-      {/* Пошук */}
       <div className={styles.searchContainer}>
         <label htmlFor="searchQuery">Search: </label>
         <input
@@ -167,7 +162,6 @@ const TaskList: React.FC = () => {
         />
       </div>
 
-      {/* Випадаючий список для фільтрації */}
       <div className={styles.filterContainer}>
         <label htmlFor="filterCriteria">Filter by status: </label>
         <select
@@ -182,7 +176,6 @@ const TaskList: React.FC = () => {
         </select>
       </div>
 
-      {/* Випадаючий список для сортування */}
       <div className={styles.sortContainer}>
         <label htmlFor="sortCriteria">Sort by: </label>
         <select
@@ -235,13 +228,13 @@ const TaskList: React.FC = () => {
                   onClick={() => handleUpdateTask(task.id)}
                   className={styles.button}
                 >
-                  Save
+                  {"Save"}
                 </button>
                 <button
                   onClick={() => setEditingTaskId(null)}
                   className={styles.button}
                 >
-                  Cancel
+                  {"Cancel"}
                 </button>
               </div>
             ) : (
@@ -261,7 +254,7 @@ const TaskList: React.FC = () => {
                     style={{
                       textDecoration: task.completed ? "line-through" : "none",
                     }}
-                    onClick={() => toggleDropdown(task.id)} // Додаємо клік для дропдауну
+                    onClick={() => toggleDropdown(task.id)}
                     className={styles.taskTitle}
                   >
                     {task.title}
@@ -277,13 +270,13 @@ const TaskList: React.FC = () => {
                     onClick={() => handleEditTask(task)}
                     className={styles.button}
                   >
-                    Edit
+                    {"Edit"}
                   </button>
                   <button
                     onClick={() => handleDeleteTask(task.id)}
                     className={styles.button}
                   >
-                    Delete
+                    {"Delete"}
                   </button>
                 </div>
               </>
